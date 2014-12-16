@@ -20,4 +20,10 @@ public class StringCalculatorTest {
         int result = stringCalculator.add("");
         assertThat(result, is(0));
     }
+
+    @Test
+    public void shouldReturnTheGivenNumberWhenSingleNumberGiven() throws Exception {
+        int result = stringCalculator.add("2");
+        assertThat(result, is(2));
+    }
 }
