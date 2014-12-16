@@ -10,7 +10,7 @@ public class StringCalculator {
             return 0;
         }
 
-        List<String> splitNumbers = Arrays.asList(inputString.split(","));
+        List<String> splitNumbers = Arrays.asList(inputString.split("[,\n]"));
         return splitNumbers.stream().mapToInt(Integer::parseInt).sum();
     }
 }
