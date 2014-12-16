@@ -32,4 +32,10 @@ public class StringCalculatorTest {
         int result = stringCalculator.add("1,2");
         assertThat(result, is(3));
     }
+
+    @Test
+    public void shouldReturnSumOfAnyAmountOfNumbers() throws Exception {
+        int result = stringCalculator.add("1,2,3,1");
+        assertThat(result, is(7));
+    }
 }

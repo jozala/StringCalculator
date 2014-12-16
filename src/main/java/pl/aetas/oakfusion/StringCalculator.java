@@ -1,5 +1,8 @@
 package pl.aetas.oakfusion;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class StringCalculator {
 
     public int add(String inputString) {
@@ -7,12 +10,8 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] splitNumbers = inputString.split(",");
-
-        if (splitNumbers.length == 1) {
-            return Integer.parseInt(splitNumbers[0]);
-        }
-        return Integer.parseInt(splitNumbers[0]) + Integer.parseInt(splitNumbers[1]);
+        List<String> splitNumbers = Arrays.asList(inputString.split(","));
+        return splitNumbers.stream().mapToInt(Integer::parseInt).sum();
     }
 }
 
