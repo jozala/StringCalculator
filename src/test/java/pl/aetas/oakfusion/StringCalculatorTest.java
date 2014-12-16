@@ -50,4 +50,10 @@ public class StringCalculatorTest {
         int result = stringCalculator.add("//;\n1;2");
         assertThat(result, is(3));
     }
+
+    @Test
+    public void shouldChangeDelimiterWhenItIsSpecialCharacterInRegexp() throws Exception {
+        int result = stringCalculator.add("//*\n2*4*1");
+        assertThat(result, is(7));
+    }
 }

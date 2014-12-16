@@ -2,8 +2,12 @@ package pl.aetas.oakfusion;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
+
+    public static final String DEFAULT_DELIMITER_REGEX = "[,\n]";
+    public static final String NONDEFAULT_DELIMITER_INDICATOR = "//";
 
     public int add(String inputString) {
         if (inputString.isEmpty()) {
@@ -19,12 +23,12 @@ public class StringCalculator {
     }
 
     private StringCalculator.InputData parseInputData(String inputString) {
-        String delimiterRegex = "[,\n]";
+        String delimiterRegex = DEFAULT_DELIMITER_REGEX;
         String numbersString = inputString;
-        if (inputString.startsWith("//")) {
+        if (inputString.startsWith(NONDEFAULT_DELIMITER_INDICATOR)) {
             delimiterRegex = inputString.substring(2, inputString.indexOf("\n"));
+            delimiterRegex = Pattern.quote(delimiterRegex);
             numbersString = inputString.substring(inputString.indexOf("\n") + 1);
-
         }
         return new StringCalculator.InputData(delimiterRegex, numbersString);
     }
