@@ -26,4 +26,10 @@ public class StringCalculatorTest {
         int result = stringCalculator.add("2");
         assertThat(result, is(2));
     }
+
+    @Test
+    public void shouldReturnSumOfTwoNumbersWhenTwoCommaSeparatedNumbersGiven() throws Exception {
+        int result = stringCalculator.add("1,2");
+        assertThat(result, is(3));
+    }
 }

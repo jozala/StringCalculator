@@ -6,7 +6,13 @@ public class StringCalculator {
         if (inputString.isEmpty()) {
             return 0;
         }
-        return Integer.parseInt(inputString);
+
+        String[] splitNumbers = inputString.split(",");
+
+        if (splitNumbers.length == 1) {
+            return Integer.parseInt(splitNumbers[0]);
+        }
+        return Integer.parseInt(splitNumbers[0]) + Integer.parseInt(splitNumbers[1]);
     }
 }
 
