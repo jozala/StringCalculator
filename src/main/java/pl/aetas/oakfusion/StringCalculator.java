@@ -3,6 +3,7 @@ package pl.aetas.oakfusion;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
 
@@ -15,11 +16,18 @@ public class StringCalculator {
         }
 
         StringCalculator.InputData inputData = parseInputData(inputString);
+        List<Integer> numbers = splitNumbers(inputData);
 
+        if (numbers.stream().anyMatch(number -> number < 0)) {
+            throw new IllegalArgumentException();
+        }
+        return numbers.stream().reduce(0, (acc, number) -> acc + number);
+    }
+
+    private List<Integer> splitNumbers(StringCalculator.InputData inputData) {
         String numbersString = inputData.getNumbersString();
-        String delimiterRegex = inputData.getDelimiterRegex();
-        List<String> splitNumbers = Arrays.asList(numbersString.split(delimiterRegex));
-        return splitNumbers.stream().mapToInt(Integer::parseInt).sum();
+        String[] splitNumbers = numbersString.split(inputData.getDelimiterRegex());
+        return Arrays.stream(splitNumbers).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
     }
 
     private StringCalculator.InputData parseInputData(String inputString) {

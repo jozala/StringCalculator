@@ -1,12 +1,17 @@
 package pl.aetas.oakfusion;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class StringCalculatorTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     private StringCalculator stringCalculator;
 
@@ -55,5 +60,11 @@ public class StringCalculatorTest {
     public void shouldChangeDelimiterWhenItIsSpecialCharacterInRegexp() throws Exception {
         int result = stringCalculator.add("//*\n2*4*1");
         assertThat(result, is(7));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenCallingAddWithNegativeNumber() throws Exception {
+        expectedException.expect(IllegalArgumentException.class);
+        stringCalculator.add("1,2,3,-1,2,-99");
     }
 }
