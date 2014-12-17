@@ -18,10 +18,19 @@ public class StringCalculator {
         StringCalculator.InputData inputData = parseInputData(inputString);
         List<Integer> numbers = splitNumbers(inputData);
 
-        if (numbers.stream().anyMatch(number -> number < 0)) {
-            throw new IllegalArgumentException();
+        List<Integer> negativeNumbers = findNegativeNumbers(numbers);
+        if (!negativeNumbers.isEmpty()) {
+            String negativeNumbersString = negativeNumbers.stream().map(Object::toString).collect(Collectors.joining(", "));
+            throw new IllegalArgumentException("Negative numbers in input are illegal: " + negativeNumbersString);
         }
+
         return numbers.stream().reduce(0, (acc, number) -> acc + number);
+    }
+
+    private List<Integer> findNegativeNumbers(List<Integer> numbers) {
+        return numbers.stream()
+                .filter(number -> number < 0)
+                .collect(Collectors.toList());
     }
 
     private List<Integer> splitNumbers(StringCalculator.InputData inputData) {

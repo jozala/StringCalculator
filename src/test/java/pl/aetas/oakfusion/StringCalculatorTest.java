@@ -63,8 +63,10 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenCallingAddWithNegativeNumber() throws Exception {
+    public void shouldThrowExceptionWithNegativeNumbersInMessageWhenCallingAddWithNegativeNumber() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("-1");
+        expectedException.expectMessage("-99");
         stringCalculator.add("1,2,3,-1,2,-99");
     }
 }
