@@ -57,7 +57,7 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldChangeDelimiterWhenItIsSpecialCharacterInRegexp() throws Exception {
+    public void shouldChangeDelimiterLikeForNormalCharWhenItIsSpecialCharacterInRegexp() throws Exception {
         int result = stringCalculator.add("//*\n2*4*1");
         assertThat(result, is(7));
     }
@@ -80,5 +80,11 @@ public class StringCalculatorTest {
     public void shouldSupportMultiCharacterDelimiterWhenDelimiterIsSpecifiedInsideSquareBrackets() throws Exception {
         int result = stringCalculator.add("//[***]\n1***2***3");
         assertThat(result, is(6));
+    }
+
+    @Test
+    public void shouldSumNumbersSeparatedByVariousNonDefaultDelimiters() throws Exception {
+        int result = stringCalculator.add("//[***][$][-]\n1***2$3-5");
+        assertThat(result, is(11));
     }
 }

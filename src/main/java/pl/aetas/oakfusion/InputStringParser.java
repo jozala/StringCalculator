@@ -1,27 +1,31 @@
 package pl.aetas.oakfusion;
 
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InputStringParser {
 
-    private static final String DEFAULT_DELIMITER_REGEX = "[,\n]";
+    private static final List<String> DEFAULT_DELIMITERS = Arrays.asList(",", "\n");
     private static final String NONDEFAULT_DELIMITER_INDICATOR = "//";
 
     public InputData parseInputData(String inputString) {
-        String delimiterRegex = DEFAULT_DELIMITER_REGEX;
-        String numbersString = inputString;
         if (inputString.startsWith(NONDEFAULT_DELIMITER_INDICATOR)) {
-            delimiterRegex = readNonDefaultDelimiter(inputString);
-            numbersString = inputString.substring(inputString.indexOf("\n") + 1);
+            Collection<String> delimiters = readNonDefaultDelimiters(inputString);
+            String numbersString = inputString.substring(inputString.indexOf("\n") + 1);
+            return new InputData(delimiters, numbersString);
         }
-        return new InputData(delimiterRegex, numbersString);
+        return new InputData(DEFAULT_DELIMITERS, inputString);
     }
 
-    private String readNonDefaultDelimiter(String inputString) {
-        String delimiterRegex = inputString.substring(2, inputString.indexOf("\n"));
-        if (delimiterRegex.startsWith("[") && delimiterRegex.endsWith("]")) {
-            delimiterRegex = delimiterRegex.substring(1).substring(0,delimiterRegex.length()-2);
+    private Collection<String> readNonDefaultDelimiters(String inputString) {
+        String delimiter = inputString.substring(2, inputString.indexOf("\n"));
+        if (delimiter.startsWith("[") && delimiter.endsWith("]")) {
+            delimiter = delimiter.substring(1).substring(0,delimiter.length()-2);
+            return Arrays.stream(delimiter.split("\\]\\[")).collect(Collectors.toList());
         }
-        return Pattern.quote(delimiterRegex);
+        return Collections.singleton(delimiter);
     }
 }

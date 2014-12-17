@@ -1,16 +1,19 @@
 package pl.aetas.oakfusion;
 
+import java.util.Collection;
+import java.util.Collections;
+
 final class InputData {
-    private final String delimiterRegex;
+    private final Collection<String> delimiters;
     private final String numbersString;
 
-    public InputData(String delimiterRegex, String numbersString) {
-        this.delimiterRegex = delimiterRegex;
+    public InputData(Collection<String> delimiters, String numbersString) {
+        this.delimiters = Collections.unmodifiableCollection(delimiters);
         this.numbersString = numbersString;
     }
 
-    public String getDelimiterRegex() {
-        return delimiterRegex;
+    public Collection<String> getDelimiters() {
+        return delimiters;
     }
 
     public String getNumbersString() {

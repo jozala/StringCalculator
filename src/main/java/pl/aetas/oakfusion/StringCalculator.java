@@ -2,6 +2,7 @@ package pl.aetas.oakfusion;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
@@ -41,7 +42,11 @@ public class StringCalculator {
 
     private List<Integer> splitNumbers(InputData inputData) {
         String numbersString = inputData.getNumbersString();
-        String[] splitNumbers = numbersString.split(inputData.getDelimiterRegex());
+        String allDelimitersRegex = inputData.getDelimiters().stream()
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
+
+        String[] splitNumbers = numbersString.split(allDelimitersRegex);
         return Arrays.stream(splitNumbers).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
     }
 }
