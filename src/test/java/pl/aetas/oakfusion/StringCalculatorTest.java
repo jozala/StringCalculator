@@ -17,7 +17,7 @@ public class StringCalculatorTest {
 
     @Before
     public void setUp() throws Exception {
-        stringCalculator = new StringCalculator();
+        stringCalculator = new StringCalculator(new InputStringParser());
     }
 
     @Test
