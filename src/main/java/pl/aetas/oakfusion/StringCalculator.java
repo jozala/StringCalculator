@@ -47,6 +47,9 @@ public class StringCalculator {
         String numbersString = inputString;
         if (inputString.startsWith(NONDEFAULT_DELIMITER_INDICATOR)) {
             delimiterRegex = inputString.substring(2, inputString.indexOf("\n"));
+            if (delimiterRegex.startsWith("[") && delimiterRegex.endsWith("]")) {
+                delimiterRegex = delimiterRegex.substring(1).substring(0,delimiterRegex.length()-2);
+            }
             delimiterRegex = Pattern.quote(delimiterRegex);
             numbersString = inputString.substring(inputString.indexOf("\n") + 1);
         }

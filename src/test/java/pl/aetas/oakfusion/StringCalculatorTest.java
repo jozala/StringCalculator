@@ -75,4 +75,10 @@ public class StringCalculatorTest {
         int result = stringCalculator.add("1000,1001,3");
         assertThat(result, is(1003));
     }
+
+    @Test
+    public void shouldSupportMultiCharacterDelimiterWhenDelimiterIsSpecifiedInsideSquareBrackets() throws Exception {
+        int result = stringCalculator.add("//[***]\n1***2***3");
+        assertThat(result, is(6));
+    }
 }
