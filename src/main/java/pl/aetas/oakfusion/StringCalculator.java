@@ -9,6 +9,7 @@ public class StringCalculator {
 
     public static final String DEFAULT_DELIMITER_REGEX = "[,\n]";
     public static final String NONDEFAULT_DELIMITER_INDICATOR = "//";
+    public static final int MAX_LIMIT_NUMBER_VALUE = 1000;
 
     public int add(String inputString) {
         if (inputString.isEmpty()) {
@@ -24,7 +25,9 @@ public class StringCalculator {
             throw new IllegalArgumentException("Negative numbers in input are illegal: " + negativeNumbersString);
         }
 
-        return numbers.stream().reduce(0, (acc, number) -> acc + number);
+        return numbers.stream()
+                .filter(number -> number <= MAX_LIMIT_NUMBER_VALUE)
+                .reduce(0, (acc, number) -> acc + number);
     }
 
     private List<Integer> findNegativeNumbers(List<Integer> numbers) {

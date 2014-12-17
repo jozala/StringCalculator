@@ -69,4 +69,10 @@ public class StringCalculatorTest {
         expectedException.expectMessage("-99");
         stringCalculator.add("1,2,3,-1,2,-99");
     }
+
+    @Test
+    public void shouldSumOnlyNumberLessThen1000AndIgnoreHigherNumbers() throws Exception {
+        int result = stringCalculator.add("1000,1001,3");
+        assertThat(result, is(1003));
+    }
 }
